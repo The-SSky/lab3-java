@@ -1,6 +1,5 @@
 package edu;
 
-import edu.exceptions.IllegalIndexException;
 import edu.exceptions.MediaIndexOutOfRangeException;
 
 import java.util.Arrays;
@@ -8,9 +7,9 @@ import java.util.Arrays;
 public abstract class MediaLibrary implements Collectable {
 
     private String title;
-    private int price; //numOfAbstractPages
-    private String[] collection; //articles
-    private int[] durations; //numsOfPages
+    private int price;
+    private String[] collection;
+    private int[] durations;
 
     public MediaLibrary() {
         title = Defaults.TITLE;
@@ -26,7 +25,6 @@ public abstract class MediaLibrary implements Collectable {
         durations = new int[collection.length];
     }
 
-    // region get
     public String getTitle() {
         return title;
     }
@@ -53,46 +51,29 @@ public abstract class MediaLibrary implements Collectable {
         }
         return durations[index];
     }
-    // endregion
 
-    // region set
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setPrice(int num) {
-        if (num < Seriesable.MIN_NUM_OF_START_PAGES) {
-            throw new IllegalArgumentException("неверное число страниц");
-        }
-        if (num > Seriesable.MAX_NUM_OF_START_PAGES) {
-            throw new IllegalArgumentException("слишком большое число страниц");
-        }
-
-        price = num;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setItem(int index, String title) {
         if (index < 0 || index >= collection.length) {
-            throw new IllegalIndexException("неверный индекс");
+            throw new MediaIndexOutOfRangeException("illegal index");
         }
 
         collection[index] = title;
     }
 
-    public void setDuration(int index, int num) {
+    public void setDuration(int index, int duration) {
         if (index < 0 || index >= collection.length) {
-            throw new IllegalIndexException("неверный индекс");
+            throw new MediaIndexOutOfRangeException("illegal index");
         }
-        if (num < Seriesable.MIN_NUM_OF_PAGES_OF_EL) {
-            throw new IllegalArgumentException("неверное число страниц");
-        }
-        if (num > Seriesable.MAX_NUM_OF_PAGES_OF_EL) {
-            throw new IllegalArgumentException("слишком большое число страниц");
-        }
-
-        durations[index] = num;
+        durations[index] = duration;
     }
-    // endregion
 
     // функциональный метод
     public int getTotalDuration() {
@@ -103,35 +84,6 @@ public abstract class MediaLibrary implements Collectable {
         return sum;
     }
 
-    // region переопределения
-/*
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("название сборника статей .......................... ").append(title).append('\n');
-        sb.append("кол-во страниц в аннотации ........................ ").append(price).append('\n');
-        sb.append("общей кол-во страниц в сборнике без аннотаций ..... ").append(getTotalDuration()).append('\n');
-        sb.append("кол-во элементов .................................. ").append(collection.length).append('\n');
-        sb.append("тип объекта........................................ ").append(getClass()).append('\n');
-        sb.append("---------------------------------------------------\n");
-
-        appendArticlesInfo(sb);
-
-        return sb.toString();
-    }
-
-    private void appendArticlesInfo(StringBuilder sb) {
-        int lastIndex = collection.length - 1;
-        for (int i = 0; i < lastIndex; i++) {
-            sb.append(i).append(") ").
-                    append(collection[i]).
-                    append(" (кол-во стр. -- ").append(durations[i]).append(")").append("\n");
-        }
-        sb.append(lastIndex).append(") ").
-                append(collection[lastIndex]).
-                append(" (кол-во стр. -- ").append(durations[lastIndex]).append(")");
-    }
-*/
     @Override
     public boolean equals(Object obj){
         if (obj == null) {
@@ -157,5 +109,4 @@ public abstract class MediaLibrary implements Collectable {
     public int hashCode() {
         return super.hashCode();
     }
-    // endregion
 }

@@ -8,10 +8,9 @@ public class AudioLibrary extends MediaLibrary{
         super(title, price, count);
     }
 
-    // region переопределения
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(0);
         result.append("Название аудиотеки: ").append(getTitle()).append('\n');
         result.append("Цена: ").append(getPrice()).append('\n');
         result.append("Общая продолжительность в минутах: ");
@@ -19,7 +18,6 @@ public class AudioLibrary extends MediaLibrary{
         result.append("Всего аудиофайлов: ").append(getItemsCount()).append('\n');
         result.append("-----------------\n");
 
-        //appendArticlesInfo(result);
         return result.toString();
     }
 }

@@ -10,7 +10,7 @@ public class VideoLibrary extends MediaLibrary{
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(0);
         result.append("Название видеотеки: ").append(getTitle()).append('\n');
         result.append("Цена: ").append(getPrice()).append('\n');
         result.append("Общая продолжительность в минутах: ");
@@ -18,7 +18,6 @@ public class VideoLibrary extends MediaLibrary{
         result.append("Всего видеофайлов: ").append(getItemsCount()).append('\n');
         result.append("-----------------\n");
 
-        //appendArticlesInfo(result);
         return result.toString();
     }
 }
