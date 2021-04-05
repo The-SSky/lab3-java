@@ -106,7 +106,13 @@ public abstract class MediaLibrary implements Collectable {
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public int hashCode(){
+        int hash = 53;
+        if (title != null) hash ^= title.hashCode();
+        if (collection != null) hash ^= collection.hashCode();
+        if (durations != null) hash ^= durations.hashCode();
+        if (price != 0) hash ^= price;
+
+        return hash;
     }
 }
